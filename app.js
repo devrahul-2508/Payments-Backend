@@ -38,6 +38,17 @@ app.post("/payments",(req,res,next)=>{
         }
     })
 
+});
+
+app.get("/payments",function(req,res){
+  payment.find(function(err,results){
+    if(!err){
+        res.send(results);
+    }
+    else{
+        res.send("Error Occured");
+    }
+  }) 
 })
 
 app.listen(3000,(req,res)=>{
