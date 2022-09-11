@@ -11,7 +11,8 @@ mongoose.connect("mongodb://localhost:27017/paymentsDB");
 const paymentSchema = {
     paymentID: String,
     name: String,
-    amount: Number
+    amount: Number,
+    ts: Number
 };
 
 const payment = mongoose.model("payments",paymentSchema);
@@ -27,7 +28,8 @@ app.post("/payments",(req,res,next)=>{
     const newPayment = new payment({
         paymentID: req.body.paymentID,
         name: req.body.name,
-        amount: req.body.amount
+        amount: req.body.amount,
+        ts: req.body.ts
     })
     newPayment.save((err)=>{
         if(!err){
@@ -41,7 +43,7 @@ app.post("/payments",(req,res,next)=>{
 });
 
 app.get("/payments",function(req,res){
-  payment.find(function(err,results){
+  payment.find({}).sort({ts: -1}).exec(function(err,results){
     if(!err){
         res.send(results);
     }
