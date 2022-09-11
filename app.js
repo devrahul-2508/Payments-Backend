@@ -53,6 +53,18 @@ app.get("/payments",function(req,res){
   }) 
 })
 
+app.delete("/payments",function(req,res){
+    console.log(req.body._id);
+    payment.findOneAndDelete({_id: req.body._id},function(err,result){
+        if(err){
+            res.send("Deletion Failed");
+        }
+        else{
+            res.send("Successfully deleted");
+        }
+    })
+})
+
 app.listen(3000,(req,res)=>{
     console.log("Server started at port 3000");
 })
