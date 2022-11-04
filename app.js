@@ -1,12 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+require('dotenv').config();
 
 
 const app = express();
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/paymentsDB");
+let username = process.env.USERNAME
+let password = process.env.PASSWORD
+
+mongoose.connect("mongodb+srv://admin-rahul:"+password+"@cluster0.hehvlg7.mongodb.net/paymentsDB");
 
 const paymentSchema = {
     paymentID: String,
@@ -36,6 +40,7 @@ app.post("/payments",(req,res,next)=>{
             res.send("Successfully added payments to database");
         }
         else{
+            console.log(err);
             res.send("Error Occured");
         }
     })
