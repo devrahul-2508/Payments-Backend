@@ -21,6 +21,10 @@ const paymentSchema = {
 
 const payment = mongoose.model("payments",paymentSchema);
 
+app.get("/",(req,res)=>{
+    res.json("Hello this is payments backend")
+})
+
 
 
 app.post("/payments",(req,res,next)=>{
@@ -70,6 +74,5 @@ app.delete("/payments",function(req,res){
     })
 })
 
-app.listen(3000,(req,res)=>{
-    console.log("Server started at port 3000");
-})
+const PORT = process.env.PORT || 3000
+app.listen(PORT,()=> console.log("Server has been started"))
